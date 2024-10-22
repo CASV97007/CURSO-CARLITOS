@@ -1,0 +1,55 @@
+*bin/target/*
+*target/*
+!.mvn/wrapper/maven-wrapper.jar
+*bin/.sts4-cache/classpath-data.json
+*.sts4-cache/classpath-data.json
+*.dropboxignore
+### LOGS ###
+*LOGS/
+### COMPILADOS ###
+*target/
+### Ficheros temporales ###
+*src/main/resources/static/images/documentos/*
+
+### Eclipse ###
+
+*.metadata
+*bin/
+*tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+*local.properties
+*.settings/*
+*.loadpath
+*.recommenders
+
+### STS ###
+*.apt_generated
+*.classpath
+*.factorypath*
+*.project
+*.settings
+*.springBeans
+*.metadata/*
+*.settings/org.eclipse.m2e.core.prefs
+*.settings/org.eclipse.jdt.core.prefs
+
+### IntelliJ IDEA ###
+*.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+*nbproject/private/
+*build/
+*nbbuild/
+*dist/
+*nbdist/
+*.nb-gradle/
+
+### META_INF ###
+*bin/src/main/java/META-INF/sun-jaxb.episode
+*src/main/java/META-INF/sun-jaxb.episode
