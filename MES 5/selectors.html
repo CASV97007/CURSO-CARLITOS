@@ -1,0 +1,297 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/Prueba2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/Prueba2/css/style.css">
+    <script type="text/javascript" src="/Prueba2/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/Prueba2/js/bootstrap.js"></script>
+<meta charset="UTF-8"><title>Biblioteca</title></head>
+
+
+
+
+<body class="">
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid ">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="/Prueba2/inicio.jsp"> <img height="45px" width="210px" src="/Prueba2/images/saraworldhome.png"></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class=""><a href="/Prueba2/inicio.jsp">Home</a></li>
+            
+            <li><a href="/Prueba2/images.jsp">Portfolio</a></li>
+            <li><a href="/Prueba2/biblioteca.jsp">Biblioteca</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a style="background: Red; color: white" href="FinalizarController">Finalizar</a></li>
+        </ul>
+    </div>
+</nav>
+
+    <!-- Contenedor Principal -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Menú Lateral Izquierdo -->
+            <div class="col-sm-2 sidebar">
+                <!-- Elementos del Menú Lateral -->
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a onclick="mostrarLibros(event)" href="MostrarLibros">1- Mostrar Libros</a></li>
+                    <li><a onclick="mostrarUsuarios(event)" href="biblioteca_jsp/mostrarUsuarios.jsp">2- Mostrar Usuarios</a></li>
+                    <li><a onclick="agregarLibro(event)" href="biblioteca_jsp/agregarLibro.jsp">3- Agregar Libro</a></li>
+                    <li><a onclick="agregarUsuario(event)" href="biblioteca_jsp/agregarUsuario.jsp">4- Agregar Usuario</a></li>
+                    <li><a onclick="buscarlibro(event)" href="BuscarL">5-
+                            Buscar Libro</a></li>
+                    <li><a onclick="buscarUsuario(event)" href="BuscarU">6-
+                            Buscar Usuario</a></li>
+                    <li><a onclick="prestarLibro(event)" href="PrestarLibroController">7- Prestar Libro</a></li>
+                    <li><a href="#">8- Devolver Libro</a></li>
+                    <li><a href="#">9- Menu Admin</a></li>
+                    <!-- Más links si es necesario -->
+                </ul>
+            </div>
+
+            <!-- Contenido Dinámico Derecho -->
+            <div class="col-sm-9" id="contenedorBiblioteca">
+<form>
+    <div class="row">
+        <!-- Primer Selector -->
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Libros Disponibles</label> <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Segundo Selector -->
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Usuario</label> <select class="form-control" id="exampleFormControlSelect2">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Centrado -->
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form></div>
+
+
+        </div>
+    </div>
+
+    
+<footer class="footer vh-10 3" style="background-color: #333333; color: white;">
+    <div class="container" style="padding-bottom: 50px">
+        <div class="row">
+            <!-- Añade este div para estructurar las columnas -->
+            <br>
+            <br>
+            <div class="col-md-6 col-xs-12">
+                Datos de contacto <br>
+                <br>
+                <br>
+                <address name="nombre">
+                    Carlitos Fernandez <br> Madrid, El aguacate 28000 <br>
+                    655489798
+                </address>
+            </div>
+
+            <!-- Bloque del formulario movido a la derecha -->
+            <div class="col-md-6 col-xs-12">
+                <h3>Envíame una pregunta</h3>
+                <form method="POST" id="infoForm" action="/Prueba2/paginaDestino.jsp">
+                    <div class="form-group">
+                        <label for="nombre">Nombre: </label> <input id="nombreId" class="form-control" type="text" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Edad: </label> <input class="form-control" type="number" name="edad">
+                    </div>
+                    <div class="form-group">
+                        <label>Email: </label> <input class="form-control" type="email" name="email">
+                    </div>
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    
+
+<div class="modal fade in" tabindex="-1" role="dialog" id="modalCargando" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <img src="images/PepoCagando.gif" style="width: 100%; height: 100%; color: green;">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function mostrarLibros(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "MostrarLibros",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+
+        function mostrarUsuarios(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "biblioteca_jsp/mostrarUsuarios.jsp",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+
+        function agregarLibro(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "biblioteca_jsp/agregarLibro.jsp",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+
+        function agregarUsuario(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "biblioteca_jsp/agregarUsuario.jsp",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+
+        function buscarlibro(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "BuscarL",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+
+        function buscarUsuario(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "BuscarU",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+
+        function prestarLibro(event) {
+            event.preventDefault();
+            $.ajax({
+                url : "PrestarLibroController",
+                type : "GET",
+                //dataType: "text/html",
+                success : function(data) {
+                    $("#contenedorBiblioteca").html(data);
+                },
+                error : function(peti, status, errortype) {
+                    console.log(errortype);
+                }, // Coma agregada aquí
+                beforeSend : function(xhr) {
+                    $("#modalCargando").modal("show");
+                },
+                complete : function(xhr, status) {
+                    $("#modalCargando").modal("hide");
+                }
+            });
+        }
+    </script>
+
+
+
+</body></html>
